@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi">
+<meta charset="utf-8" />
+<title>Canvas wave</title>
+<style>
+  html, body { margin: 0; background: #16130f; }
+  canvas { display: block; }
+</style>
+<canvas id="stage" width="960" height="540"></canvas>
+<script>
+  // Sóng sin nhiều lớp: dùng mẫu này làm khung cho hiệu ứng canvas bất kỳ.
+  const cv = document.getElementById("stage");
+  const ctx = cv.getContext("2d");
+  const W = cv.width, H = cv.height;
+  const colors = ["#e2552b", "#f3eadb", "#8fb39a"];
+
+  window.renderFrame = (t) => {
+    ctx.fillStyle = "#16130f";
+    ctx.fillRect(0, 0, W, H);
+    colors.forEach((c, k) => {
+      ctx.beginPath();
+      for (let x = 0; x <= W; x += 4) {
+        // pha = 2π·t => khung cuối nối liền khung đầu
+        const y = H / 2 + Math.sin(x / (90 + k * 30) + 2 * Math.PI * t * (k + 1)) * (60 - k * 14)
+                        + Math.sin(x / 37 - 2 * Math.PI * t) * 8;
+        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.strokeStyle = c;
+      ctx.globalAlpha = 1 - k * 0.3;
+      ctx.lineWidth = 4 - k;
+      ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+  };
+  window.renderFrame(0);
+</script>
+</html>

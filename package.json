@@ -1,0 +1,15 @@
+{
+  "name": "claude-pptx-skills",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Bộ 5 Claude Code Skills tạo file PowerPoint .pptx hiện đại với Morph Transition, GIF động, biểu đồ xuất hiện từng bước và quy trình kiểm tra chất lượng.",
+  "scripts": {
+    "demo": "node templates/morph-deck-generator.js output/morph-demo.pptx",
+    "audit": "python3 .claude/skills/pptx-quality-audit/scripts/audit_pptx.py output/morph-demo.pptx",
+    "preview": "bash .claude/skills/pptx-quality-audit/scripts/render_preview.sh output/morph-demo.pptx"
+  },
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  },
+  "license": "MIT"
+}
